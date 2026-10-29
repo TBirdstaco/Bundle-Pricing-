@@ -648,20 +648,33 @@
     </div>
   </div>
 
+  <div class="card">
+    <div class="card-head">
+      <div class="step-num">2</div>
+      <div class="card-head-label">Has Quarterly Pest Control?</div>
+    </div>
+    <div class="card-body">
+      <div class="pill-row" id="tc-pest-pills">
+        <button class="pill active" data-val="yes" onclick="setTcPest(this)">Yes — Trelona Only</button>
+        <button class="pill" data-val="no" onclick="setTcPest(this)">No — Convert to Complete</button>
+      </div>
+    </div>
+  </div>
+
   <div class="divider"></div>
 
   <div class="results-grid">
     <div class="metric">
-      <div class="metric-label">Install Cost</div>
-      <div class="metric-type">One-Time (At Cost)</div>
+      <div class="metric-label">Initial Cost</div>
+      <div class="metric-type">One-Time</div>
       <div class="metric-value"><span class="dollar">$</span><span id="tc-install">—</span></div>
-      <div class="metric-sub">Trelona station install</div>
+      <div class="metric-sub" id="tc-initial-sub">Trelona install at cost</div>
     </div>
     <div class="metric">
       <div class="metric-label">Recurring</div>
       <div class="metric-type">Monthly</div>
-      <div class="metric-value"><span class="dollar">$</span><span>30</span></div>
-      <div class="metric-sub">Replaces $180 annual renewal</div>
+      <div class="metric-value"><span class="dollar">$</span><span id="tc-monthly">30</span></div>
+      <div class="metric-sub" id="tc-monthly-sub">Replaces $180 annual renewal</div>
     </div>
   </div>
 
@@ -672,7 +685,7 @@
 
   <div class="inclusions-card">
     <div class="inclusions-label">Who this is for</div>
-    <div class="inclusions-text">Customers currently on a <strong>$180 annual termite inspection</strong> who may have had a liquid termite treatment in the past, or whose treatment is past the recommended 10-year mark. Converts them to the Trelona active bait system: install at cost, then $30/month.</div>
+    <div class="inclusions-text" id="tc-who">Customers currently on a <strong>$180 annual termite inspection</strong> who may have had a liquid termite treatment in the past, or whose treatment is past the recommended 10-year mark. Converts them to the Trelona active bait system: install at cost, then $30/month.</div>
   </div>
 
 </div><!-- /tab-trelona -->
@@ -800,7 +813,16 @@ function setTab(el) {
   document.querySelectorAll(".tab-panel").forEach(p => p.classList.toggle("active", p.id === "tab-" + el.dataset.tab));
   window.scrollTo(0, 0);
 }
+let tcPest = "yes";
+function setTcPest(el) {
+  tcPest = el.dataset.val;
+  document.querySelectorAll("#tc-pest-pills .pill").forEach(p => { p.classList.remove("active"); p.classList.remove("active-gold"); });
+  el.classList.add(tcPest === "no" ? "active-gold" : "active");
+  renderTrelona();
+}
 function renderTrelona() {
+  const conv = tcPest === "no";
+  const ess = planData.detached.essential;
   const v = parseInt(document.getElementById("tc-sqft").value);
   const band = document.getElementById("tc-band");
   let row = null, over = false;
@@ -813,13 +835,21 @@ function renderTrelona() {
     const lo = trelonaTable.indexOf(row) === 0 ? "Up to 1,000" : (trelonaTable[trelonaTable.indexOf(row)-1][0]+1).toLocaleString() + "–" + row[0].toLocaleString();
     band.textContent = "Priced at the " + row[0].toLocaleString() + " sq ft row (" + lo + " sq ft)";
     band.className = "sqft-band has-band";
-    set("tc-install", (row[2]*row[3]).toLocaleString());
+    const inst = row[2]*row[3];
+    set("tc-install", (inst + (conv ? ess.initial : 0)).toLocaleString());
+    set("tc-initial-sub", conv ? "$" + inst.toLocaleString() + " Trelona install + $" + ess.initial + " pest initial" : "Trelona install at cost");
     set("tc-lf", row[1]); set("tc-stations", row[2]);
   } else {
     band.textContent = over ? "Over 10,000 sq ft — contact manager for pricing" : "Enter the home's total square footage";
     band.className = over ? "sqft-band has-band" : "sqft-band";
     ["tc-install","tc-lf","tc-stations"].forEach(id => set(id, "—"));
+    set("tc-initial-sub", conv ? "Trelona install + $" + ess.initial + " pest initial" : "Trelona install at cost");
   }
+  set("tc-monthly", conv ? 30 + ess.monthly : 30);
+  set("tc-monthly-sub", conv ? "$30 Trelona + $" + ess.monthly + " quarterly pest" : "Replaces $180 annual renewal");
+  document.getElementById("tc-who").innerHTML = conv
+    ? "Annual termite customers (<strong>$180/yr</strong>) <strong>without quarterly pest control</strong>. Converts them to a full <strong>Complete</strong> customer: Trelona install at cost plus the $" + ess.initial + " Essential pest initial, then $" + (30 + ess.monthly) + "/month ($30 Trelona + $" + ess.monthly + " quarterly pest)."
+    : "Customers currently on a <strong>$180 annual termite inspection</strong> who may have had a liquid termite treatment in the past, or whose treatment is past the recommended 10-year mark. Converts them to the Trelona active bait system: install at cost, then $30/month.";
 }
 
 let prop = "detached", tier = "essential", sqftVal = null;
