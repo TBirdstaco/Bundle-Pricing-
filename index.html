@@ -666,12 +666,12 @@
   <div class="card">
     <div class="card-head">
       <div class="step-num">3</div>
-      <div class="card-head-label">Has Quarterly Pest Control?</div>
+      <div class="card-head-label">Wants Quarterly Pest Control?</div>
     </div>
     <div class="card-body">
       <div class="pill-row" id="tc-pest-pills">
-        <button class="pill active" data-val="yes" onclick="setTcPest(this)">Yes — Trelona Only</button>
-        <button class="pill" data-val="no" onclick="setTcPest(this)">No — Convert to Complete</button>
+        <button class="pill active" data-val="trelona" onclick="setTcPest(this)">No — Trelona Only</button>
+        <button class="pill" data-val="complete" onclick="setTcPest(this)">Yes — Convert to Complete</button>
       </div>
     </div>
   </div>
@@ -828,7 +828,7 @@ function setTab(el) {
   document.querySelectorAll(".tab-panel").forEach(p => p.classList.toggle("active", p.id === "tab-" + el.dataset.tab));
   window.scrollTo(0, 0);
 }
-let tcPest = "yes", tcDeck = null;
+let tcPest = "trelona", tcDeck = null;
 function setTcDeck(el) {
   tcDeck = parseInt(el.dataset.val);
   document.querySelectorAll("#tc-deck-pills .pill").forEach(p => p.classList.toggle("active", p === el));
@@ -840,11 +840,11 @@ function setTcDeck(el) {
 function setTcPest(el) {
   tcPest = el.dataset.val;
   document.querySelectorAll("#tc-pest-pills .pill").forEach(p => { p.classList.remove("active"); p.classList.remove("active-gold"); });
-  el.classList.add(tcPest === "no" ? "active-gold" : "active");
+  el.classList.add(tcPest === "complete" ? "active-gold" : "active");
   renderTrelona();
 }
 function renderTrelona() {
-  const conv = tcPest === "no";
+  const conv = tcPest === "complete";
   const ess = planData.detached.essential;
   const v = parseInt(document.getElementById("tc-sqft").value);
   const band = document.getElementById("tc-band");
