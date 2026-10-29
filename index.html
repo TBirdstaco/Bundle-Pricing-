@@ -556,6 +556,10 @@
       <div class="card-head-label">Square Footage</div>
     </div>
     <div class="card-body">
+      <div style="display:flex;gap:8px;margin-bottom:10px">
+        <input class="sqft-input" type="text" id="res-addr" placeholder="Address (optional)" autocomplete="street-address" style="padding-right:12px;font-size:16px" onkeydown="if(event.key==='Enter')lookupSqft('res-addr','sqft-input')" />
+        <button class="pill" style="flex:0 0 auto;min-width:0;padding:0 14px;font-size:14px;background:var(--gold);border-color:var(--gold-dark);color:var(--navy)" onclick="lookupSqft('res-addr','sqft-input')">Look up<br>sq ft</button>
+      </div>
       <div class="sqft-wrap">
         <input class="sqft-input" type="number" id="sqft-input" inputmode="numeric" pattern="[0-9]*" min="1" max="99999" placeholder="e.g. 2,200" oninput="onSqftInput()" />
         <span class="sqft-unit">sq ft</span>
@@ -832,11 +836,11 @@ function setTab(el) {
   document.querySelectorAll(".tab-panel").forEach(p => p.classList.toggle("active", p.id === "tab-" + el.dataset.tab));
   window.scrollTo(0, 0);
 }
-function lookupSqft() {
-  const a = document.getElementById("tc-addr").value.trim();
-  if (!a) { document.getElementById("tc-addr").focus(); return; }
+function lookupSqft(addrId = "tc-addr", sqftId = "tc-sqft") {
+  const a = document.getElementById(addrId).value.trim();
+  if (!a) { document.getElementById(addrId).focus(); return; }
   window.open("https://www.google.com/search?q=" + encodeURIComponent(a + " square feet"), "_blank");
-  setTimeout(() => document.getElementById("tc-sqft").focus(), 300);
+  setTimeout(() => document.getElementById(sqftId).focus(), 300);
 }
 let tcPest = "trelona", tcDeck = null;
 function setTcDeck(el) {
