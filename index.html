@@ -613,8 +613,8 @@
 const planData = {
   detached: {
     essential: { initial: 199, monthly: 52, inclusions: "Quarterly exterior pest treatments, exterior barrier, interior service as needed, web removal, 2 exterior rodent bait stations, free re-service." },
-    advanced:  { initial: 299, monthly: 62, inclusions: "Everything in Essential + 4 termite monitoring stations, quarterly monitoring & reporting, early termite detection, annual documented inspection." },
-    complete:  { monthly: 82, inclusions: "Everything in Advanced + Full Trelona active bait system, active termite elimination, bait replaced as needed, retreatment coverage.", initialBySqft: [[1500,699],[2500,799],[3500,899],[Infinity,999]] }
+    advanced:  { initial: 299, monthly: 62, inclusions: "Everything in Essential + 4 termite monitoring stations, quarterly monitoring & reporting, early termite detection." },
+    complete:  { monthly: 82, inclusions: "Everything in Advanced + Full Trelona active bait system, active termite elimination, bait replaced as needed, retreatment coverage, annual termite inspection.", initialBySqft: [[1500,699],[2500,799],[3500,899],[Infinity,999]] }
   }
 };
 
@@ -670,16 +670,16 @@ const sellScripts = {
       `<strong>Rodent stations included.</strong> "You also get two exterior rodent bait stations, so we're watching for mice and rats around the outside of the home, not just insects."`,
       `<strong>Over 100 years local.</strong> "Getem has been protecting homes in Hampton Roads since 1922. We know the pests in this area and what it takes to keep them out."`
     ],
-    tip: `<strong>Upgrade opportunity:</strong> Essential has no termite coverage. Ask: <em>"Has your home ever had a termite inspection?"</em> For $10 more a month, Advanced adds 4 termite monitoring stations and an annual documented inspection, so activity gets caught early instead of after damage is done.`
+    tip: `<strong>Upgrade opportunity:</strong> Essential has no termite coverage. Ask: <em>"Has your home ever had a termite inspection?"</em> For $10 more a month, Advanced adds 4 termite monitoring stations that we check every visit, so activity gets caught early instead of after damage is done.`
   },
   advanced: {
     title: "Advanced — Pest Control + Termite Early Warning",
     subtitle: "CSR sales script — why this plan is a smart choice",
-    intro: `<strong>Advanced</strong> includes everything in Essential plus <strong>4 termite monitoring stations</strong>, quarterly monitoring and reporting, and an annual documented inspection, for <strong>$299 to start and $62 a month</strong>.`,
+    intro: `<strong>Advanced</strong> includes everything in Essential plus <strong>4 termite monitoring stations</strong> checked and reported on every quarterly visit, for <strong>$299 to start and $62 a month</strong>.`,
     points: [
       `<strong>Termites don't announce themselves.</strong> "Most homeowners never see termites until there's already damage. The monitoring stations give us a way to catch activity early, while it's still a smaller, cheaper fix."`,
       `<strong>Checked every visit.</strong> "Every quarterly service, your tech checks the stations and reports what they find, so you always know where things stand."`,
-      `<strong>A documented inspection every year.</strong> "You get an annual termite inspection on record. That's peace of mind now, and a paper trail if you ever sell the home."`,
+      `<strong>A record of what we find.</strong> "Every station check is noted on your service report, so you have a running record of termite monitoring at your home."`,
       `<strong>Small cost for an early warning.</strong> "It's just $10 a month more than our base plan to add termite monitoring on top of your full pest protection."`
     ],
     tip: `<strong>Upgrade opportunity:</strong> Monitoring watches for termites but doesn't treat them. If the customer has had termites before, lives near wooded areas, or plans to stay long-term, mention that Complete adds the active Trelona bait system for $20 more a month.`
@@ -687,7 +687,7 @@ const sellScripts = {
   complete: {
     title: "Complete — Total Pest & Active Termite Protection",
     subtitle: "CSR sales script — why this plan is a smart choice",
-    intro: `<strong>Complete</strong> is our highest level of protection: everything in Advanced plus the <strong>Trelona active termite bait system</strong>, with bait replaced as needed and retreatment coverage, for <strong>$82 a month</strong> (initial based on square footage).`,
+    intro: `<strong>Complete</strong> is our highest level of protection: everything in Advanced plus the <strong>Trelona active termite bait system</strong>, with bait replaced as needed, retreatment coverage and an <strong>annual termite inspection</strong>, for <strong>$82 a month</strong> (initial based on square footage).`,
     points: [
       `<strong>Active elimination, not just monitoring.</strong> "This plan doesn't just watch for termites — the Trelona system actively eliminates colonies around your home, around the clock."`,
       `<strong>Bait replaced and retreatment covered.</strong> "We maintain the system and replace bait as needed, and retreatment is covered. You're not facing a surprise bill if activity shows up."`,
